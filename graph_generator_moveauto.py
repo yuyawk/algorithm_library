@@ -45,7 +45,7 @@ class UnionFind(): #size-based
         return self.treesize[self.root(x)]
     #end def(gettreesize)
     
-#end def(class UnionFind)
+#end class(UnionFind)
 
 Nleft = 9
 Nright = 30
@@ -60,7 +60,7 @@ flag_1indexed = True
 flag_isdirected = False
 flag_weighted = False
 flag_printNandM = True
-flag_copyclipboard = True
+flag_copyclipboard = False
 
 Mleft = 1
 Mright = 2*N
