@@ -52,17 +52,22 @@ Nright = 30
 N = random.randint(Nleft,Nright)
 
 flag_output = False
-flag_istree = False
+flag_isconnected_notnecessarilytree = False
+flag_istree = False #if true, flag_isconnected_notnecessarilytree has to be false
 flag_allowmultipleedge = False
 flag_allowselfloop = False
 flag_1indexed = True
-flag_isconnected = True
 flag_isdirected = False
+flag_weighted = False
 flag_printNandM = True
-flag_copyclipboard = False
+flag_copyclipboard = True
 
 Mleft = 1
 Mright = 2*N
+
+weight_left = 1
+weight_right = 100
+
 
 if flag_istree:
     M = N-1
@@ -111,11 +116,15 @@ def make_an_edge():
 str_clip = ""
 
 
-if flag_isconnected:
+if flag_isconnected_notnecessarilytree:
     M = 0
     while True:
         p0,p1 = make_an_edge()
-        str_clip += "{} {}\n".format(p0+shift,p1+shift)
+        if flag_weighted:
+            str_clip += "{} {} {}\n".format(p0+shift,p1+shift,random.randint(weight_left,weight_right))
+        else:
+            str_clip += "{} {}\n".format(p0+shift,p1+shift)
+        #end if
         M += 1
         union_find.unite(p0,p1)
         if union_find.gettreesize(0) == N:
@@ -134,7 +143,11 @@ else:
         else:
             p0,p1 = make_an_edge()
         #end if
-        str_clip += "{} {}\n".format(p0+shift,p1+shift)
+        if flag_weighted:
+            str_clip += "{} {} {}\n".format(p0+shift,p1+shift,random.randint(weight_left,weight_right))
+        else:
+            str_clip += "{} {}\n".format(p0+shift,p1+shift)
+        #end if
     #end for
 #end if
 
