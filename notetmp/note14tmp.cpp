@@ -746,7 +746,7 @@ public:
     else
       {
 	mt19937_64 mt64(static_cast<unsigned int>(time(nullptr)));
-	uniform_int_distribution<> rand_uniform(10000,min(static_cast<long long>(1e9),static_cast<long long>(modulus)-2LL));
+	uniform_int_distribution<unsigned long long> rand_uniform(static_cast<unsigned long long>(1e8),modulus-2ULL);
 	base = rand_uniform(mt64);
       }
 
