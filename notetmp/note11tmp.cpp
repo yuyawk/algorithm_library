@@ -651,6 +651,124 @@ public:
   }
 };
 
+struct RollingHash
+{
+  
+private:
+  vector<unsigned long long> hash;
+  vector<unsigned long long> base_pow;
+  unsigned long long base, modulus;
+
+  const unsigned long long MODULUS_DEFAULT = (1ULL << 61) - 1;
+  const unsigned long long MASK30 = (1ULL << 30) - 1;
+  const unsigned long long MASK31 = (1ULL << 31) - 1;
+
+  unsigned long long Modulus_2pow61m1( unsigned long long val )
+  {
+    val = (val & MODULUS_DEFAULT) + (val >> 61);
+
+    if( MODULUS_DEFAULT < val )
+      {
+	val -= MODULUS_DEFAULT;
+      }
+
+    return val;
+  }
+  
+
+  unsigned long long Multiple_2pow61m1( unsigned long long a, unsigned long long b )
+  {
+    unsigned long long au = a >> 31;
+    unsigned long long ad = a & MASK31;
+    unsigned long long bu = b >> 31;
+    unsigned long long bd = b & MASK31;
+
+    unsigned long long mid = ad * bu + au * bd;
+    unsigned long long midu = mid >> 30;
+    unsigned long long midd = mid & MASK30;
+
+    return Modulus_2pow61m1( ( (au * bu) << 1 ) + midu + (midd << 31) + ad * bd );
+  }
+ 
+  void initialize(string& S)
+  {
+    int N = S.size();
+    vector<int> s(N);
+    for(int i = 0; i < N; ++i)
+      {
+	s[i] = S[i];
+      }
+    
+    initialize(s);
+  }
+ 
+  void initialize(vector<int>& S)
+  {
+    hash.resize(S.size()+1);
+    base_pow.resize(S.size()+1);
+    hash[0] = 0;
+    base_pow[0] = 1;
+
+    if( modulus == MODULUS_DEFAULT )
+      {	
+	for(int i = 1; i <= S.size(); ++i)
+	  {
+	    hash[i] = Modulus_2pow61m1( Multiple_2pow61m1(hash[i-1],base) + S[i-1] );
+	    base_pow[i] = Multiple_2pow61m1(base_pow[i-1],base);
+	  }
+      }
+    else
+      {
+	for(int i = 1; i <= S.size(); ++i)
+	  {
+	    hash[i] = ( hash[i-1] * base + S[i-1] ) % modulus;
+	    base_pow[i] = ( base_pow[i-1] * base ) % modulus;
+	  }
+      }
+  }
+
+public:
+  RollingHash(string S = "", unsigned long long base_ = 0, unsigned long long modulus_ = 0)
+  {
+    if( 0 < modulus_ )
+      {
+	modulus = modulus_;
+      }
+    else
+      {
+	modulus = MODULUS_DEFAULT;
+      }
+
+    if( 0 < base_ )
+      {
+	base = base_;
+      }
+    else
+      {
+	mt19937_64 mt64(static_cast<unsigned int>(time(nullptr)));
+	uniform_int_distribution<> rand_uniform(10000,min(static_cast<long long>(1e9),static_cast<long long>(modulus)-2LL));
+	base = rand_uniform(mt64);
+      }
+
+    if( S.size() > 0 )
+      {
+	initialize(S);
+      }
+  }
+  
+  // 0-indexed, [a, b)
+  unsigned long long between(int a, int b)
+  {
+    if( modulus == MODULUS_DEFAULT )
+      {
+	return Modulus_2pow61m1( modulus + hash[b] - Multiple_2pow61m1(hash[a],base_pow[b-a]) );
+      }
+    
+    return ( modulus + hash[b] - ( hash[a] * base_pow[b-a] ) % modulus ) % modulus;
+  }
+};
+
+
 /*------------------ the end of the template -----------------------*/
 
 
