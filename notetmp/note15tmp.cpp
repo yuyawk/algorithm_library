@@ -653,6 +653,22 @@ public:
 
 struct RollingHash
 {
+
+  /*
+    10 primes near 1e9:
+    {
+    1000000007,
+    1000000009,
+    1000000021,
+    1000000033,
+    1000000087,
+    1000000093,
+    1000000097,
+    1000000103,
+    1000000123,
+    1000000181
+    }
+  */
   
 private:
   vector<unsigned long long> hash;
@@ -662,6 +678,7 @@ private:
   const unsigned long long MODULUS_DEFAULT = (1ULL << 61) - 1;
   const unsigned long long MASK30 = (1ULL << 30) - 1;
   const unsigned long long MASK31 = (1ULL << 31) - 1;
+  const unsigned long long BASE_MIN = 1e7;
 
   unsigned long long Modulus_2pow61m1( unsigned long long val )
   {
@@ -746,7 +763,7 @@ public:
     else
       {
 	mt19937_64 mt64(static_cast<unsigned int>(time(nullptr)));
-	uniform_int_distribution<unsigned long long> rand_uniform(static_cast<unsigned long long>(1e8),modulus-2ULL);
+	uniform_int_distribution<unsigned long long> rand_uniform(BASE_MIN,modulus-BASE_MIN);
 	base = rand_uniform(mt64);
       }
 
