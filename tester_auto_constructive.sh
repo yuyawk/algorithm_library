@@ -1,7 +1,7 @@
 #!/bin/bash
 
-script_solution="./notetmp/note14tmp.cpp"
-script_bruteforce="./notetmp/note1tmp.cpp"
+script_solution="./notetmp/note1tmp.cpp"
+script_bruteforce="./notetmp/note2tmp.cpp"
 
 testcase="./z_midfiles/input.txt"
 midcase="./z_midfiles/input2.txt"
@@ -13,12 +13,22 @@ g++ $script_solution -g -o $program_solution
 echo "Compiling a script... (brute-force)"
 g++ $script_bruteforce -g -o $program_bruteforce 
 
-cnt=3
+cnt=0
 while true
 do
     echo $cnt > $testcase
     echo $($program_solution < $testcase) > $midcase
     echo "N=$cnt"
-    echo $($program_bruteforce < $midcase)
-    ((++cnt))
+    res=$($program_bruteforce < $midcase)
+
+    if [[ $cnt != $res ]]
+    then
+	echo "Wrong Answer"
+	echo "output: $res"
+	echo "expected: $cnt"
+        exit
+    else
+	echo "OK(case K=$cnt)"
+	((++cnt))
+    fi
 done

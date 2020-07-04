@@ -4,11 +4,11 @@
 import random
 import sys
 
-Nmin = 3
-Nmax = 100
+Nmin = 4
+Nmax = 5
 leftmin = 1
 leftmax = 1
-rightmax = 10000
+rightmax = 1e9
 flag_printN = True
 flag_distinct = False
 flag_outputfile = False
