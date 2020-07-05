@@ -163,7 +163,7 @@ vector<string> split(string str, char ch)
   int first = 0;
   int last = str.find_first_of(ch);
 
-  if (last == string::npos)
+  if (last == ((int)string::npos))
   {
     last = SIZ(str);
   }
@@ -177,7 +177,7 @@ vector<string> split(string str, char ch)
     first = last + 1;
     last = str.find_first_of(ch, first);
 
-    if (last == string::npos)
+    if (last == ((int)string::npos))
     {
       last = SIZ(str);
     }
@@ -902,7 +902,7 @@ private:
 
     if (modulus == MODULUS_DEFAULT)
     {
-      for (int i = 1; i <= S.size(); ++i)
+      for (int i = 1; i <= ((int)S.size()); ++i)
       {
         hash[i] = Modulus_2pow61m1(Multiple_2pow61m1(hash[i - 1], base) + S[i - 1]);
         base_pow[i] = Multiple_2pow61m1(base_pow[i - 1], base);
@@ -910,7 +910,7 @@ private:
     }
     else
     {
-      for (int i = 1; i <= S.size(); ++i)
+      for (int i = 1; i <= ((int)S.size()); ++i)
       {
         hash[i] = (hash[i - 1] * base + S[i - 1]) % modulus;
         base_pow[i] = (base_pow[i - 1] * base) % modulus;
@@ -1000,7 +1000,7 @@ public:
   {
     TrieNode *pCrawl = treeroot;
 
-    for (int i = 0; i < key.size(); i++)
+    for (int i = 0; i < ((int)key.size()); i++)
     {
       int index = key[i] - chara_origin;
 
@@ -1020,7 +1020,7 @@ public:
   {
     TrieNode *pCrawl = treeroot;
 
-    for (int i = 0; i < key.size(); i++)
+    for (int i = 0; i < ((int)key.size()); i++)
     {
       int index = key[i] - chara_origin;
 

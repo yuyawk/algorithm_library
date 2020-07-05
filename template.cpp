@@ -93,9 +93,6 @@
 #define MOD 1000000007
 #define endl "\n"
 #define PI acos(-1.0)
-#define IOS   \
-  cin.tie(0); \
-  ios::sync_with_stdio(false)
 #if __cplusplus < 201103L
 #define stoi(argument_string) atoi((argument_string).c_str())
 #define stoll(argument_string) atoll((argument_string).c_str())
@@ -166,7 +163,7 @@ vector<string> split(string str, char ch)
   int first = 0;
   int last = str.find_first_of(ch);
 
-  if (last == string::npos)
+  if (last == ((int)string::npos))
   {
     last = SIZ(str);
   }
@@ -180,7 +177,7 @@ vector<string> split(string str, char ch)
     first = last + 1;
     last = str.find_first_of(ch, first);
 
-    if (last == string::npos)
+    if (last == ((int)string::npos))
     {
       last = SIZ(str);
     }
@@ -526,6 +523,121 @@ void print_binary(long long val, int num_digit = 63, bool verbose = false)
   }
 }
 
+void print_all()
+{
+  cout << endl;
+}
+
+void print_all_nobreak()
+{
+  return;
+}
+
+template <class Head, class... Tail>
+void print_all_nobreak(Head head, Tail... tail)
+{
+  cout << head;
+  if (sizeof...(tail) != 0)
+  {
+    cout << " ";
+  }
+  print_all_nobreak(forward<Tail>(tail)...);
+}
+
+template <class Head, class... Tail>
+void print_all(Head head, Tail... tail)
+{
+  cout << head;
+  if (sizeof...(tail) != 0)
+  {
+    cout << " ";
+  }
+  print_all(forward<Tail>(tail)...);
+}
+
+template <class T>
+void print_all_nobreak(vector<T> vec)
+{
+  cout << "[";
+  for (int i = 0; i < vec.size(); i++)
+  {
+    cout << vec[i];
+    if (i != ((int)vec.size() - 1))
+    {
+      cout << ", ";
+    }
+  }
+  cout << "]";
+}
+
+template <class T>
+void print_all(vector<T> vec)
+{
+  cout << "[";
+  for (int i = 0; i < vec.size(); i++)
+  {
+    cout << vec[i];
+    if (i != ((int)vec.size() - 1))
+    {
+      cout << ", ";
+    }
+  }
+  cout << "]";
+  cout << endl;
+}
+
+template <class T>
+void print_all(vector<vector<T>> df)
+{
+  cout << "[";
+  for (int i = 0; i < df.size(); i++)
+  {
+    print_all_nobreak(df[i]);
+    if (i != ((int)df.size() - 1))
+    {
+      cout << ", ";
+    }
+  }
+  cout << "]";
+  cout << endl;
+}
+
+template <class T>
+void print_all_nobreak(vector<vector<T>> df)
+{
+  cout << "[";
+  for (int i = 0; i < df.size(); i++)
+  {
+    print_all_nobreak(df[i]);
+    if (i != ((int)df.size() - 1))
+    {
+      cout << ", ";
+    }
+  }
+  cout << "]";
+}
+
+template <class T1, class T2>
+void print_all_nobreak(pair<T1, T2> p)
+{
+  cout << "(";
+  print_all_nobreak(p.first);
+  cout << ", ";
+  print_all_nobreak(p.second);
+  cout << ")";
+}
+
+template <class T1, class T2>
+void print_all(pair<T1, T2> p)
+{
+  cout << "(";
+  print_all_nobreak(p.first);
+  cout << ", ";
+  print_all_nobreak(p.second);
+  cout << ")";
+  cout << endl;
+}
+
 struct UnionFind //size-based
 {
   vector<int> parent, treesize;
@@ -790,7 +902,7 @@ private:
 
     if (modulus == MODULUS_DEFAULT)
     {
-      for (int i = 1; i <= S.size(); ++i)
+      for (int i = 1; i <= ((int)S.size()); ++i)
       {
         hash[i] = Modulus_2pow61m1(Multiple_2pow61m1(hash[i - 1], base) + S[i - 1]);
         base_pow[i] = Multiple_2pow61m1(base_pow[i - 1], base);
@@ -798,7 +910,7 @@ private:
     }
     else
     {
-      for (int i = 1; i <= S.size(); ++i)
+      for (int i = 1; i <= ((int)S.size()); ++i)
       {
         hash[i] = (hash[i - 1] * base + S[i - 1]) % modulus;
         base_pow[i] = (base_pow[i - 1] * base) % modulus;
@@ -888,7 +1000,7 @@ public:
   {
     TrieNode *pCrawl = treeroot;
 
-    for (int i = 0; i < key.size(); i++)
+    for (int i = 0; i < ((int)key.size()); i++)
     {
       int index = key[i] - chara_origin;
 
@@ -908,7 +1020,7 @@ public:
   {
     TrieNode *pCrawl = treeroot;
 
-    for (int i = 0; i < key.size(); i++)
+    for (int i = 0; i < ((int)key.size()); i++)
     {
       int index = key[i] - chara_origin;
 
@@ -928,39 +1040,58 @@ public:
 
 //global variables
 
-//#define DEBUG_TESTING 1
-
-void give_inputs()
+void give_inputs(int state_debug)
 {
-#ifndef DEBUG_TESTING
-  //standard I/O
-  IOS; /* making cin faster */
 
-#elif DEBUG_TESTING == 1
-  //testcase 1
-
-#elif DEBUG_TESTING == 2
-  //testcase 2
-
-#elif DEBUG_TESTING == 3
-  //testcase 3
-
-#endif
+  if (state_debug == 0)
+  {
+    //standard I/O
+    cin.tie(0);
+    ios::sync_with_stdio(false); /* making cin faster */
+  }
+  else if (state_debug == 1)
+  {
+    //testcase 1
+  }
+  else if (state_debug == 2)
+  {
+    //testcase 2
+  }
+  else if (state_debug == 3)
+  {
+    //testcase 3
+  }
 }
 
-signed main()
+type solve() // ここに処理を書く。型はansに合わせる。
 {
-  give_inputs();
+}
 
-#ifdef DEBUG_TESTING
+signed main(signed argc, char *argv[])
+{
+  if (argc == 1)
+  {
+    give_inputs(0);
+  }
+  else
+  {
+    give_inputs(stoi(string(argv[1])));
+  }
+
+  auto ans = solve();
+
+  /*
+  print here!!!
+  */
+
   //confirm expected == ans
 
-  if (expected != ans)
+  if (argc != 1 and 0 < stoi(string(argv[1])) and expected != ans)
   {
     puts("[WA]");
     puts("expected: ");
-
+    print_all(expected);
     puts("found: ");
+    print_all(ans);
   }
-#endif
 }
