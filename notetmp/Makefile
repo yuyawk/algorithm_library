@@ -11,6 +11,10 @@ clean: ## reset scripts and remove binaries
 	cd .. && bash $(CLEANER) && cd $(CURRENT_DIR)
 	rm -f *.out
 	rm -f core
+clean-simple: ## remove scripts, remove binaries and use a simpler template
+	cd .. && bash $(CLEANER) 1 && cd $(CURRENT_DIR)
+	rm -f *.out
+	rm -f core
 help: ## print this message
 	@echo "Usage: make SUB_COMMAND argument_name=argument_value"
 	@echo ""
