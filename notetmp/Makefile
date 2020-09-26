@@ -1,5 +1,5 @@
 CXX := g++
-CXXFLAGS := -g -Wall -Werror -Wundef -Wswitch-enum -Wswitch-default -Wfloat-equal -Wendif-labels -Wlogical-op -Winit-self -Wredundant-decls
+CXXFLAGS := -g -Wall -Wundef -Wswitch-enum -Wswitch-default -Wfloat-equal -Wendif-labels -Wlogical-op -Winit-self -Wredundant-decls
 CLEANER := cpytmp.sh
 CURRENT_DIR := notetmp/
 
