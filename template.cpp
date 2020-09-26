@@ -195,7 +195,7 @@ struct CombinationTable
   }
 };
 
-void print_vector(vector<int> h, bool verbose = true)
+void print_vector(vector<int> h, char delim = ' ', bool verbose = true)
 {
   int L = h.size();
 
@@ -214,11 +214,11 @@ void print_vector(vector<int> h, bool verbose = true)
     {
       if (verbose)
       {
-        printf(" ");
+        printf("%c", delim);
       }
       else
       {
-        cerr << " ";
+        cerr << delim;
       }
     }
     else
@@ -235,7 +235,7 @@ void print_vector(vector<int> h, bool verbose = true)
   }
 }
 
-void print_vector(vector<long long> h, bool verbose = true)
+void print_vector(vector<long long> h, char delim = ' ', bool verbose = true)
 {
   int L = h.size();
 
@@ -254,11 +254,11 @@ void print_vector(vector<long long> h, bool verbose = true)
     {
       if (verbose)
       {
-        printf(" ");
+        printf("%c", delim);
       }
       else
       {
-        cerr << " ";
+        cerr << delim;
       }
     }
     else
@@ -275,7 +275,7 @@ void print_vector(vector<long long> h, bool verbose = true)
   }
 }
 
-void print_matrix2D(vector<vector<int>> h, bool verbose = true)
+void print_matrix2D(vector<vector<int>> h, char delim = ' ', bool verbose = true)
 {
   int Ly = h.size();
 
@@ -297,11 +297,11 @@ void print_matrix2D(vector<vector<int>> h, bool verbose = true)
       {
         if (verbose)
         {
-          printf(" ");
+          printf("%c", delim);
         }
         else
         {
-          cerr << " ";
+          cerr << delim;
         }
       }
       else
@@ -319,7 +319,7 @@ void print_matrix2D(vector<vector<int>> h, bool verbose = true)
   }
 }
 
-void print_matrix2D(vector<vector<long long>> h, bool verbose = true)
+void print_matrix2D(vector<vector<long long>> h, char delim = ' ', bool verbose = true)
 {
   int Ly = h.size();
 
@@ -341,11 +341,11 @@ void print_matrix2D(vector<vector<long long>> h, bool verbose = true)
       {
         if (verbose)
         {
-          printf(" ");
+          printf("%c", delim);
         }
         else
         {
-          cerr << " ";
+          cerr << delim;
         }
       }
       else
@@ -477,7 +477,7 @@ template <class T>
 void print_all_nobreak(vector<T> vec)
 {
   cout << "[";
-  for (int i = 0; i < vec.size(); i++)
+  for (int i = 0; i < (int)vec.size(); i++)
   {
     cout << vec[i];
     if (i != ((int)vec.size() - 1))
@@ -492,7 +492,7 @@ template <class T>
 void print_all(vector<T> vec)
 {
   cout << "[";
-  for (int i = 0; i < vec.size(); i++)
+  for (int i = 0; i < (int)vec.size(); i++)
   {
     cout << vec[i];
     if (i != ((int)vec.size() - 1))
@@ -508,7 +508,7 @@ template <class T>
 void print_all(vector<vector<T>> df)
 {
   cout << "[";
-  for (int i = 0; i < df.size(); i++)
+  for (int i = 0; i < (int)df.size(); i++)
   {
     print_all_nobreak(df[i]);
     if (i != ((int)df.size() - 1))
@@ -524,7 +524,7 @@ template <class T>
 void print_all_nobreak(vector<vector<T>> df)
 {
   cout << "[";
-  for (int i = 0; i < df.size(); i++)
+  for (int i = 0; i < (int)df.size(); i++)
   {
     print_all_nobreak(df[i]);
     if (i != ((int)df.size() - 1))
@@ -859,7 +859,7 @@ public:
       base = rand_uniform(mt64);
     }
 
-    if (S.size() > 0)
+    if ((int)S.size() > 0)
     {
       initialize(S);
     }
