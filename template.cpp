@@ -154,6 +154,28 @@ long long lcm(long long a, long long b) // assuming a,b >= 1
   return a * b / gcd(a, b);
 }
 
+inline long long mod_positive(long long a, long long m) 
+{
+    return (a % m + m) % m;
+}
+
+long long ext_gcd(long long a, long long b, long long &x, long long &y)
+{
+  /*
+  ax+by=gcd(a,b) の解 (x,y) を1つ計算
+  ついでに gcd(a,b) を返す
+  */
+  if (b == 0)
+  {
+    x = 1, y = 0;
+    return a;
+  }
+
+  long long d = ext_gcd(b, a % b, y, x);
+  y -= (a / b) * x;
+  return d;
+}
+
 long long pow_fast(long long x, long long n_power, long long modulus)
 {
 
