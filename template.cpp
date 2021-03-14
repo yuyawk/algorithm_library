@@ -7,8 +7,8 @@
 #define j1 qvjb24680
 #define next qvne13579xt
 #define prev qvpr13579ev
-#define INF 1000000007
-#define MOD 1000000007
+constexpr long long INF = 1000000007;
+constexpr long long MOD = 1000000007;
 #define endl "\n"
 #define PI acos(-1.0)
 #if __cplusplus < 201103L
@@ -154,9 +154,9 @@ long long lcm(long long a, long long b) // assuming a,b >= 1
   return a * b / gcd(a, b);
 }
 
-inline long long mod_positive(long long a, long long m) 
+inline long long mod_positive(long long a, long long m)
 {
-    return (a % m + m) % m;
+  return (a % m + m) % m;
 }
 
 long long ext_gcd(long long a, long long b, long long &x, long long &y)
@@ -790,10 +790,10 @@ private:
   vector<unsigned long long> base_pow;
   unsigned long long base, modulus;
 
-  const unsigned long long MODULUS_DEFAULT = (1ULL << 61) - 1;
-  const unsigned long long MASK30 = (1ULL << 30) - 1;
-  const unsigned long long MASK31 = (1ULL << 31) - 1;
-  const unsigned long long BASE_MIN = 1e7;
+  static constexpr unsigned long long MODULUS_DEFAULT = (1ULL << 61) - 1;
+  static constexpr unsigned long long MASK30 = (1ULL << 30) - 1;
+  static constexpr unsigned long long MASK31 = (1ULL << 31) - 1;
+  static constexpr unsigned long long BASE_MIN = static_cast<unsigned long long>(1e7);
 
   unsigned long long Modulus_2pow61m1(unsigned long long val)
   {

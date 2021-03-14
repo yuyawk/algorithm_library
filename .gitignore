@@ -2,3 +2,4 @@ notetmp/note*tmp.cpp
 notetmp/*.out
 z_midfiles/*
 core
+.vscode/
