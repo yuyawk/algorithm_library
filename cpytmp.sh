@@ -1,16 +1,8 @@
 #!/bin/bash
 
-script_template="./template.cpp"
-eot=$(printf "%q" "/*------------------ the end of the template -----------------------*/")
-
-if [ $# != 1 ]; then
-    for i in `seq 1 20`
-    do
-        cp "${script_template}" "./notetmp/note${i}tmp.cpp" -f
-    done
-else
-    first="$(grep -B10000  "${eot}" "${script_template}")"
-    second="
+SCRIPT_TEMPLATE="./template.cpp"
+EOT="------------------ the end of the template -----------------------"
+MAIN_SIMPLE="/*${EOT}*/
 
 
 
@@ -23,9 +15,12 @@ signed main(void)
 
 
 }"
-    for i in `seq 1 20`
-    do
-        echo "${first}" > "./notetmp/note${i}tmp.cpp"
-        echo "${second}" >> "./notetmp/note${i}tmp.cpp"
-    done
-fi
+
+for i in $(seq 1 20)
+do
+    if [ $# != 1 ]; then
+        cp "${SCRIPT_TEMPLATE}" "./notetmp/note${i}tmp.cpp" -f
+    else
+        perl -ne "print unless /${EOT}/ && exit" "$SCRIPT_TEMPLATE" > "./notetmp/note${i}tmp.cpp"; echo "${MAIN_SIMPLE}" >> "./notetmp/note${i}tmp.cpp" 
+    fi
+done
