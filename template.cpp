@@ -1,5 +1,5 @@
-#ifndef INCLUDEHEADER_MY_TEMPLATE
-#define INCLUDEHEADER_MY_TEMPLATE
+#ifndef __MY_TEMPLATE_HEADER__
+#define __MY_TEMPLATE_HEADER__
 #include <bits/stdc++.h>
 #define y0 qvya13579
 #define y1 qvyb24680
